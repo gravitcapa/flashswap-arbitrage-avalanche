@@ -85,8 +85,12 @@ const swapMainToPartner = async (
             console.log('Estimated Gas Cost', gasCost);
             console.log('Big Number Pro Pred', bigNumberToNumber(profitPrediction));
         }
+        
+        // to avoid small trades
+        const gasMultiplier = 10; 
+        
         // If profit prediction is greater then gas then perform the swap
-        if (bigNumberToNumber(profitPrediction) > gasCost) {
+        if (bigNumberToNumber(profitPrediction) > gasCost * gasMultiplier) {
             const tx = await primaryTokenPair.swap(
                 primaryAmount0,
                 primaryAmount1,
